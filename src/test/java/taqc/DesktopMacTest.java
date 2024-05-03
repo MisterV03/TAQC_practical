@@ -9,13 +9,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 
 
 public class DesktopMacTest {
 	
 	private String defaultURL = "https://demo.opencart.com/";
-	private static ChromeOptions options;
 	private static WebDriver driver;
 	
 	@BeforeAll
@@ -32,7 +31,7 @@ public class DesktopMacTest {
 	}
 	
 	@Test
-	public void macTest() throws InterruptedException {
+	public void macTest() {
 		//changing currency
 		WebElement currency = driver.findElement(By.cssSelector(".dropdown a[href=\"#\"]"));
 		currency.click();
@@ -48,8 +47,9 @@ public class DesktopMacTest {
 		WebElement res = null;
 		//searching for "iMac" container
 		for(WebElement in : products) {
-			if(in.findElement(By.cssSelector(".product-thumb .description a")).getText().equals("iMac"));
+			if(in.findElement(By.cssSelector(".product-thumb .description a")).getText().equals("iMac")){
 				res = in;
+			}
 		}
 		if(res!= null) {//container with iMac was found
 			String actual = res.findElement(By.cssSelector(".price span.price-new")).getText();
@@ -65,7 +65,7 @@ public class DesktopMacTest {
 	@AfterAll
 	public static void finish() {
 		if (driver != null) {
-            driver.quit();
-        }
+           		driver.quit();
+        	}
 	}
 }
